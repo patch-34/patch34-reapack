@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="Patch34 Scripts" commit="ef31aeb294df35c67079bc283530e46f586e9fc7">
-<category name="Scripts"><reapack name="ReaNotepad.lua" type="script" desc="ReaNotepad"><metadata><description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+<index version="1" name="Patch34 Scripts" commit="269a84f25eb1c890997487ea59fb038d6ef20298">
+  <category name="Scripts">
+    <reapack name="Podcast_HTML_DOCX_Script_Viewer.lua" type="script" desc="Patch34: Podcast HTML/DOCX Script Viewer">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Read podcast, voiceover, and post-production scripts inside REAPER. Opens DOCX files and Google Docs HTML exports with supported formatting, comments, clickable links, and search by individual occurrence.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Requires REAPER 7 or newer and ReaImGui 0.10 or newer. See README.md / README_RU.md for installation, controls, and import limits.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 First public release. Support: https://boosty.to/patch34/donate\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0.0" author="Aleksei Vorobev / Patch34" time="2026-11-02T16:14:15Z">
+        <source main="main">https://github.com/patch-34/patch34-reapack/raw/269a84f25eb1c890997487ea59fb038d6ef20298/Scripts/Podcast_HTML_DOCX_Script_Viewer.lua</source>
+      </version>
+    </reapack>
+    <reapack name="ReaNotepad.lua" type="script" desc="ReaNotepad">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -10,4 +29,11 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 USE: Tab menu adds/renames/reorders/deletes tabs. Add > Column adds a column. Each column has quick actions for text, checkbox notes, dropdowns and import. Hover an icon for its localized description; column properties use the ... menu. Column properties enable multiple selection; block properties set color markers. Bulk deletion/color changes are undoable. Marker metadata uses @color in v2. Older scripts open colored documents read-only; remove markers before downgrading. Block actions can move widgets between columns. Up to 8 columns per tab. Drag a vertical column boundary to redistribute the available width. Columns fit the window; widths and folded states are retained for this session. The column arrow folds its contents into a compact header. Leading MM:SS / HH:MM:SS timecodes attach any block to the timeline. Read mode: double-click text, field name or the clock badge to navigate. Times use the project ruler offset, including negative positions. Empty owners start without blocks; import adds only its resulting notes. Undo/Redo: Edit menu, Ctrl/Cmd+Z and Ctrl/Cmd+Shift+Z (also Ctrl/Cmd+Y). History includes all content/structure edits and groups continuous typing. Each note owner has a separate session history, capped at 100 entries / 16 MiB per stack (at least one snapshot retained). History resets after native edits or a script restart. Appearance preferences are not part of document history. Popup drafts use native input Undo until Apply commits one document edit. Esc or a click outside a popup discards its unapplied draft. Edit mode exposes text and checkbox labels. Read mode wraps text to page width. Dropdown values remain clickable in either mode; Edit... changes field names, option names/order and adds/removes options. Block properties use ... in Edit mode and a right-click on the block in Read mode. Completed notes are dimmed. View > Completed notes last groups completed blocks at the end of each column without changing saved block order. This preference persists between runs. View > Color marker style selects a left strip or a soft whole-block fill. The native multiline editor has horizontal scrolling, not soft word wrapping. This is a plain-text block editor, not the source viewer's HTML/DOCX renderer.\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 VALIDATION: syntax, serializer/parser, storage guards and simulated UI paths tested outside REAPER. Native window rendering and REAPER undo need a host test. API references: https://www.reaper.fm/sdk/reascript/reascripthelp.html https://cfillion.ca/reaper_imgui_doc.html https://github.com/cfillion/reaimgui/blob/master/examples/demo.lua\par}
 }
-]]></description></metadata><version name="0.5.13" author="Aleksei Vorobev / Patch34" time="2026-11-02T14:45:38Z"><source main="main">https://github.com/patch-34/patch34-reapack/raw/ef31aeb294df35c67079bc283530e46f586e9fc7/Scripts/ReaNotepad.lua</source></version></reapack></category></index>
+]]></description>
+      </metadata>
+      <version name="0.5.13" author="Aleksei Vorobev / Patch34" time="2026-11-02T14:45:38Z">
+        <source main="main">https://github.com/patch-34/patch34-reapack/raw/ef31aeb294df35c67079bc283530e46f586e9fc7/Scripts/ReaNotepad.lua</source>
+      </version>
+    </reapack>
+  </category>
+</index>
