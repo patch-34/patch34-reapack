@@ -181,4 +181,20 @@ Add a clear message when ReaImGui is missing and streamline auto-refresh.]]></ch
       </version>
     </reapack>
   </category>
+  <metadata>
+    <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 Patch34 Scripts\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 {\b Patch34 Scripts} is a collection of Lua ReaScripts and JSFX for REAPER, developed by sound designer Aleksei Vorobev.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 The collection includes tools for audio editing, timeline navigation, project organization, workflow automation, and experimental sound design.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Each tool is developed as an independent utility, with a focus on clear functionality, straightforward controls, and integration into everyday REAPER workflows.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 {\b Author:} {\field{\*\fldinst{HYPERLINK "https://github.com/patch-34"}}{\fldrslt{\ul
+Aleksei Vorobev / Patch34
+}}}
+\par}
+}
+]]></description>
+  </metadata>
 </index>
