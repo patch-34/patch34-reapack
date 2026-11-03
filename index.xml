@@ -1,6 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="Patch34 Scripts" commit="1ea12305f9943616970cd30556a4f33535af0065">
+<index version="1" name="Patch34 Scripts" commit="62496a60004c96fb36fd0072ce4b91a03d628706">
+  <category name="Effects">
+    <reapack name="Patch34_Raw_Six.jsfx" type="effect" desc="Raw Six">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Six-voice JSFX generator with an output-recording track template.\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/patch-34/raw-six">GitHub repository</link>
+      </metadata>
+      <version name="1.0.0" author="Aleksei Vorobev / Patch34" time="2026-11-03T15:19:35Z">
+        <source>https://github.com/patch-34/patch34-reapack/raw/2fc58d6cafb6a9a3a3ce41c793303ff9dfa943b1/Effects/Patch34_Raw_Six.jsfx</source>
+        <source type="tracktpl" file="Patch34_Raw_Six.RTrackTemplate">https://github.com/patch-34/patch34-reapack/raw/2fc58d6cafb6a9a3a3ce41c793303ff9dfa943b1/Effects/Raw_Six_Track_Template.resource</source>
+      </version>
+    </reapack>
+  </category>
   <category name="Scripts">
+    <reapack name="Delete_Nearest_Marker_To_Cursor.lua" type="script" desc="Delete Nearest Marker to Cursor">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Deletes the marker closest to the edit cursor by absolute timeline distance. Regions are ignored.\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/patch-34/delete-nearest-marker-to-cursor">GitHub repository</link>
+      </metadata>
+      <version name="1.0.0" author="Aleksei Vorobev / Patch34" time="2026-11-03T15:19:35Z">
+        <source main="main">https://github.com/patch-34/patch34-reapack/raw/2fc58d6cafb6a9a3a3ce41c793303ff9dfa943b1/Scripts/Delete_Nearest_Marker_To_Cursor.lua</source>
+      </version>
+    </reapack>
+    <reapack name="Duplicate_Selected_Items_To_Next_Measure.lua" type="script" desc="Duplicate Selected Items to Next Measure">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Duplicates selected items one measure forward while preserving their beat offset and item properties.\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/patch-34/duplicate-items-to-next-measure">GitHub repository</link>
+      </metadata>
+      <version name="1.0.0" author="Aleksei Vorobev / Patch34" time="2026-11-03T15:19:35Z">
+        <source main="main">https://github.com/patch-34/patch34-reapack/raw/2fc58d6cafb6a9a3a3ce41c793303ff9dfa943b1/Scripts/Duplicate_Selected_Items_To_Next_Measure.lua</source>
+      </version>
+    </reapack>
+    <reapack name="Find_and_Recolor_Glued_Items.lua" type="script" desc="Find and Recolor Glued Items">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Finds and recolors glued derivatives of a selected item, with automatic coloring while running.\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/patch-34/find-and-recolor-glued-items">GitHub repository</link>
+      </metadata>
+      <version name="1.2.0" author="Aleksei Vorobev / Patch34" time="2026-11-03T15:19:35Z">
+        <changelog><![CDATA[1.2.0: Glued-derivative matching, Find action, automatic coloring on Glue events, and UI improvements.]]></changelog>
+        <source main="main">https://github.com/patch-34/patch34-reapack/raw/2fc58d6cafb6a9a3a3ce41c793303ff9dfa943b1/Scripts/Find_and_Recolor_Glued_Items.lua</source>
+      </version>
+    </reapack>
+    <reapack name="Focus_Blanket.lua" type="script" desc="Focus Blanket">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Toggles a tall neutral-colored track and item to cover the arrange view during listening.\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/patch-34/focus-blanket">GitHub repository</link>
+      </metadata>
+      <version name="1.0.0" author="Aleksei Vorobev / Patch34" time="2026-11-03T15:19:35Z">
+        <source main="main">https://github.com/patch-34/patch34-reapack/raw/2fc58d6cafb6a9a3a3ce41c793303ff9dfa943b1/Scripts/Focus_Blanket.lua</source>
+      </version>
+    </reapack>
+    <reapack name="Play_2s_Before_Next_Marker_Or_Region.lua" type="script" desc="Play 2s Before Next Marker or Region">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Seeks to two seconds before the next marker or region start, starting playback if stopped.\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/patch-34/edit-play-2s-before-next-marker-or-region">GitHub repository</link>
+      </metadata>
+      <version name="1.0.0" author="Aleksei Vorobev / Patch34" time="2026-11-03T15:19:35Z">
+        <source main="main">https://github.com/patch-34/patch34-reapack/raw/2fc58d6cafb6a9a3a3ce41c793303ff9dfa943b1/Scripts/Play_2s_Before_Next_Marker_Or_Region.lua</source>
+      </version>
+    </reapack>
     <reapack name="Podcast_HTML_DOCX_Script_Viewer.lua" type="script" desc="Patch34: Podcast HTML/DOCX Script Viewer">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
@@ -35,6 +129,21 @@
         <source main="main">https://github.com/patch-34/patch34-reapack/raw/ef31aeb294df35c67079bc283530e46f586e9fc7/Scripts/ReaNotepad.lua</source>
       </version>
     </reapack>
+    <reapack name="REAPER_Timeline_Screensaver.lua" type="script" desc="REAPER Timeline Screensaver">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Animates media items in a separate REAPER project tab as traveling waves.\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/patch-34/reaper-timeline-screensaver">GitHub repository</link>
+      </metadata>
+      <version name="1.0.0" author="Aleksei Vorobev / Patch34" time="2026-11-03T15:19:35Z">
+        <source main="main">https://github.com/patch-34/patch34-reapack/raw/2fc58d6cafb6a9a3a3ce41c793303ff9dfa943b1/Scripts/REAPER_Timeline_Screensaver.lua</source>
+      </version>
+    </reapack>
     <reapack name="Region_Time_Counter.lua" type="script" desc="Region Time Counter">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
@@ -54,6 +163,21 @@ Keep checked selections independent across open project tabs.
 Clean up deleted marker/region IDs in saved project state.
 Add a clear message when ReaImGui is missing and streamline auto-refresh.]]></changelog>
         <source main="main">https://github.com/patch-34/patch34-reapack/raw/1ea12305f9943616970cd30556a4f33535af0065/Scripts/Region_Time_Counter.lua</source>
+      </version>
+    </reapack>
+    <reapack name="Region_Time_Counter_Mini.lua" type="script" desc="Region Time Counter Mini">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Shows the combined duration of all regions without double-counting overlaps.\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/patch-34/region-time-counter-mini">GitHub repository</link>
+      </metadata>
+      <version name="1.0.0" author="Aleksei Vorobev / Patch34" time="2026-11-03T15:19:35Z">
+        <source main="main">https://github.com/patch-34/patch34-reapack/raw/2fc58d6cafb6a9a3a3ce41c793303ff9dfa943b1/Scripts/Region_Time_Counter_Mini.lua</source>
       </version>
     </reapack>
   </category>
