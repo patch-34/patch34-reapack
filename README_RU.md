@@ -2,28 +2,42 @@
 
 [English](README.md) · **Русский**
 
-Личный каталог ReaPack для скриптов и JSFX REAPER. Автор: [Aleksei Vorobev / Patch34](https://github.com/patch-34).
+Личный каталог ReaPack со скриптами и JSFX для REAPER. Автор: [Aleksei Vorobev / Patch34](https://github.com/patch-34).
 
 ## Подключение каталога
 
 1. Установите [ReaPack](https://reapack.com/) в REAPER.
-2. Выберите **Extensions → ReaPack → Import repositories…** и добавьте адрес:
+2. Откройте **Extensions → ReaPack → Import repositories…** и добавьте адрес:
 
    `https://raw.githubusercontent.com/patch-34/patch34-reapack/main/index.xml`
 
-3. Откройте **Extensions → ReaPack → Browse packages**, найдите нужный скрипт или эффект и установите пакет.
-4. Выполните синхронизацию. Дальнейшие обновления устанавливаются через ReaPack.
+3. Откройте **Extensions → ReaPack → Browse packages** и выберите нужный скрипт или JSFX.
+4. Установите выбранные пакеты и выполните синхронизацию. В дальнейшем обновления устанавливаются через тот же интерфейс.
 
-## Состав
+## Состав каталога
 
-В каталоге `Scripts/` размещаются семь новых скриптов: Delete Nearest Marker to Cursor, Duplicate Selected Items to Next Measure, Play 2s Before Next Marker or Region, Find and Recolor Glued Items, Focus Blanket, REAPER Timeline Screensaver и Region Time Counter Mini.
+В каталоге `Scripts/` подготовлены семь новых ReaScript:
 
-В каталоге `Effects/` размещается Raw Six — шестиголосный генератор JSFX. Вместе с эффектом устанавливается шаблон трека. Существующие пакеты, включая полную версию Region Time Counter, ReaNotepad и Podcast HTML/DOCX Script Viewer, остаются самостоятельными и не изменяются.
+- Delete Nearest Marker to Cursor.
+- Duplicate Selected Items to Next Measure.
+- Play 2s Before Next Marker or Region.
+- Find and Recolor Glued Items.
+- Focus Blanket.
+- REAPER Timeline Screensaver.
+- Region Time Counter Mini.
 
-## Публикация обновлений
+Каталог `Effects/` содержит **Raw Six** — шестиголосный JSFX-генератор сигнала. В состав пакета входит шаблон трека, который устанавливается вместе с эффектом.
 
-Файл `index.xml` генерируется автоматически сценарием `.github/workflows/reapack.yml` после изменений в `main`. Не редактируйте индекс вручную. После объединения PR необходимо проверить успешное выполнение GitHub Actions и наличие восьми новых пакетов в обновлённом индексе.
+Ранее опубликованные пакеты **Region Time Counter** (полная версия), **ReaNotepad** и **Podcast HTML/DOCX Script Viewer** остаются отдельными пакетами и не изменяются.
+
+## Публикация
+
+Индекс генерируется автоматически через `.github/workflows/reapack.yml` при отправке изменений в ветку `main`. Не изменяйте `index.xml` вручную.
+
+После объединения изменений проверьте успешное выполнение GitHub Actions и убедитесь, что все восемь новых пакетов присутствуют в обновлённом индексе.
 
 ## Авторство
 
-[Aleksei Vorobev / Patch34](https://github.com/patch-34). Условия лицензирования и руководство пользователя указаны в репозитории каждого пакета.
+Автор: [Aleksei Vorobev / Patch34](https://github.com/patch-34).
+
+Руководство пользователя и лицензия каждого пакета приведены в его собственном репозитории.
