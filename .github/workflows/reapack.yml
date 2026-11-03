@@ -34,7 +34,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Generate index
-        run: reapack-index --name "Patch34 Scripts" --commit
+        run: reapack-index --name "Patch34 Scripts" --about=ABOUT.md --commit
 
       - name: Publish index
         run: git push
