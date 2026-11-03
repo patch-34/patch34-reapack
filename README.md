@@ -1,8 +1,16 @@
-# Patch34 ReaPack
+# Patch34 Scripts
 
 **English** · [Русский](README_RU.md)
 
-Personal ReaPack repository for REAPER scripts and JSFX by [Aleksei Vorobev / Patch34](https://github.com/patch-34).
+## About
+
+**Patch34 Scripts** is a collection of Lua ReaScripts and JSFX for REAPER, developed by sound designer Aleksei Vorobev.
+
+The collection includes tools for audio editing, timeline navigation, project organization, workflow automation, and experimental sound design.
+
+Each tool is developed as an independent utility, with a focus on clear functionality, straightforward controls, and integration into everyday REAPER workflows.
+
+**Author:** [Aleksei Vorobev / Patch34](https://github.com/patch-34)
 
 ## Installation
 
@@ -16,16 +24,12 @@ Personal ReaPack repository for REAPER scripts and JSFX by [Aleksei Vorobev / Pa
 
 ## Packages
 
-Seven new ReaScripts are staged in the `Scripts/` directory: Delete Nearest Marker to Cursor, Duplicate Selected Items to Next Measure, Play 2s Before Next Marker or Region, Find and Recolor Glued Items, Focus Blanket, REAPER Timeline Screensaver and Region Time Counter Mini.
+The `Scripts/` directory includes Delete Nearest Marker to Cursor, Duplicate Selected Items to Next Measure, Play 2s Before Next Marker or Region, Find and Recolor Glued Items, Focus Blanket, REAPER Timeline Screensaver, Region Time Counter Mini, Region Time Counter, ReaNotepad, and Podcast HTML/DOCX Script Viewer.
 
-`Effects/` contains Raw Six, a six-voice JSFX signal generator. Its package also installs the associated track template. Existing packages, including Region Time Counter (full), ReaNotepad and Podcast HTML/DOCX Script Viewer, remain independent and unchanged.
+The `Effects/` directory includes Raw Six, a six-voice JSFX signal generator. Its package also installs the associated track template.
+
+For usage instructions and licensing terms, see each tool's repository.
 
 ## Publishing
 
-The index is generated automatically by `.github/workflows/reapack.yml` on pushes to `main`. Do not edit `index.xml` manually. When merging this change, confirm that the publishing workflow succeeds and that the generated index contains the new packages.
-
-## Credits
-
-Author: [Aleksei Vorobev / Patch34](https://github.com/patch-34).
-
-See each package repository for its documentation and license.
+The index is generated automatically by `.github/workflows/reapack.yml` on pushes to `main`. Do not edit `index.xml` manually. After updating packages, confirm that the publishing workflow succeeds and that the resulting index contains the expected package versions.
