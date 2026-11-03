@@ -2,6 +2,8 @@
 
 **English** · [Русский](README_RU.md)
 
+Lua ReaScripts and JSFX for REAPER — editing tools, workflow utilities, project navigation, and sound design experiments.
+
 ## About
 
 **Patch34 Scripts** is a collection of Lua ReaScripts and JSFX for REAPER, developed by sound designer Aleksei Vorobev.
