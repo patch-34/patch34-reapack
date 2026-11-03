@@ -1,12 +1,17 @@
 -- @description Find and Recolor Glued Items
 -- @version 1.2.0
 -- @author Aleksei Vorobev / Patch34
+-- @license MIT
 -- @link
 --   GitHub repository https://github.com/patch-34/find-and-recolor-glued-items
 -- @about
 --   Finds and recolors glued derivatives of a selected item, with automatic coloring while running.
 -- @changelog
---   1.2.0: Glued-derivative matching, Find action, automatic coloring on Glue events, and UI improvements.
+--   1.2.0 — Glued-derivative matching; Find button; undo-event auto-color;
+--             disabled states guide the workflow; slate palette; white
+--             reset border; Find moved to secondary row.
+--   1.1.0 — Patch34 rebrand; color swatch; reset; UI polish.
+--   1.0.2 — Fix: GR_SelectColor returns two values.
 
 local r = reaper
 
