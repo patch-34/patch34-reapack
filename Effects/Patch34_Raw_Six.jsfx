@@ -1,0 +1,383 @@
+desc:Raw Six
+// @version 1.0.0
+// @author Aleksei Vorobev / Patch34
+// @link
+//   GitHub repository https://github.com/patch-34/raw-six
+// @about
+//   Six-voice JSFX generator with an output-recording track template.
+// @provides
+//   [tracktpl] Raw_Six_Track_Template.resource > Patch34_Raw_Six.RTrackTemplate
+//
+// Raw Six
+// Six-voice signal generator for minimal sound design — waveform, frequency, volume per voice.
+//
+
+///////////////////////////////////////////////////////////////
+// GLOBAL
+slider1:0<0,1,1{Muted,On}>Output
+slider2:0<0,127,1>Master
+slider3:0<0,1,1{Off,Semitone}>Quantize
+
+// VOICE 01
+slider4:0<0,4,1{Sine,Tri,Square,Saw,Noise}>01. Waveform
+slider5:440<20,7000,1>Freq
+slider6:0<0,127,1>Vol
+
+// VOICE 02
+slider7:0<0,4,1{Sine,Tri,Square,Saw,Noise}>02. Waveform
+slider8:440<20,7000,1>Freq
+slider9:0<0,127,1>Vol
+
+// VOICE 03
+slider10:0<0,4,1{Sine,Tri,Square,Saw,Noise}>03. Waveform
+slider11:440<20,7000,1>Freq
+slider12:0<0,127,1>Vol
+
+// VOICE 04
+slider13:0<0,4,1{Sine,Tri,Square,Saw,Noise}>04. Waveform
+slider14:440<20,7000,1>Freq
+slider15:0<0,127,1>Vol
+
+// VOICE 05
+slider16:0<0,4,1{Sine,Tri,Square,Saw,Noise}>05. Waveform
+slider17:440<20,7000,1>Freq
+slider18:0<0,127,1>Vol
+
+// VOICE 06
+slider19:0<0,4,1{Sine,Tri,Square,Saw,Noise}>06. Waveform
+slider20:440<20,7000,1>Freq
+slider21:0<0,127,1>Vol
+
+
+@init
+two_pi = 2*$pi;
+
+// phases 0..1
+ph1=ph2=ph3=ph4=ph5=ph6=0;
+
+// triangle integrator state per voice
+t1=t2=t3=t4=t5=t6=0;
+
+// noise filter state per voice (1-pole LP)
+nz1=nz2=nz3=nz4=nz5=nz6=0;
+
+// ---- Fade-in gate state ----
+prev_out = 0;
+gate = 0;
+fade_ms = 20;
+fade_samps = max(1, floor(srate * fade_ms / 1000));
+fade_step = 1 / fade_samps;
+fading = 0;
+
+// ---- Volume smoothing ----
+vol_smooth_ms = 5;
+vol_smooth_coef = exp(-1 / (srate * vol_smooth_ms * 0.001));
+sv1=sv2=sv3=sv4=sv5=sv6=0;
+
+// ---- Frequency smoothing ----
+freq_smooth_ms = 25; // 10..50ms typical
+freq_smooth_coef = exp(-1 / (srate * freq_smooth_ms * 0.001));
+sf1=sf2=sf3=sf4=sf5=sf6=440;
+
+// ---- Norm smoothing ----
+norm_smooth_ms = 10;
+norm_smooth_coef = exp(-1 / (srate * norm_smooth_ms * 0.001));
+norm_target = 1;
+norm_s = 1;
+
+// ---- Freq bounds ----
+f_min = 20;
+f_max = 7000;
+ln_fmin = log(f_min);
+ln_fmax = log(f_max);
+ln_fspan = ln_fmax - ln_fmin;
+
+// ---- Quantize constants ----
+A4 = 440.0;
+A4_MIDI = 69;
+ln2 = log(2);
+
+// ---- PRNG: dual LCG (less audible patterns than single LCG) ----
+seed1 = 1234567;
+seed2 = 89101112;
+
+function noise2() local(r1, r2) (
+  seed1 = (seed1*1103515245 + 12345) & 0x7fffffff;
+  seed2 = (seed2*1664525 + 1013904223) & 0x7fffffff;
+
+  r1 = (seed1 / 1073741824.0) - 1.0; // [-1,1)
+  r2 = (seed2 / 1073741824.0) - 1.0;
+
+  0.5 * (r1 + r2);
+);
+
+
+// ---- PolyBLEP helpers ----
+function clamp_dt(dt) (
+  dt <= 0 ? (dt = 1/srate;) : dt;
+  dt > 0.5 ? 0.5 : dt;
+);
+
+function poly_blep(t, dt) local(x) (
+  dt = clamp_dt(dt);
+
+  t < dt ? (
+    x = t/dt;
+    x + x - x*x - 1;
+  ) :
+  t > 1 - dt ? (
+    x = (t - 1)/dt;
+    x*x + x + x + 1;
+  ) :
+  0;
+);
+
+function bl_saw(t, dt) local(y) (
+  dt = clamp_dt(dt);
+  y = 2*t - 1;
+  y -= poly_blep(t, dt);
+  y;
+);
+
+function bl_square(t, dt) local(y, t2) (
+  dt = clamp_dt(dt);
+
+  y = (t < 0.5) ? 1 : -1;
+  y += poly_blep(t, dt);
+
+  t2 = t + 0.5;
+  t2 -= floor(t2);
+  y -= poly_blep(t2, dt);
+
+  y;
+);
+
+function tri_from_square(sq, tri_state, dt) (
+  dt = clamp_dt(dt);
+  tri_state += sq * dt;
+  tri_state -= tri_state * dt;
+  tri_state;
+);
+
+// Hz -> log mapped Hz
+function log_clamp_freq(f) local(x) (
+  f < f_min ? f = f_min : 0;
+  f > f_max ? f = f_max : 0;
+
+  x = (log(f) - ln_fmin) / ln_fspan;
+  f_min * exp(ln_fspan * x);
+);
+
+// quantize to nearest semitone
+function quantize_semitone(freq) local(n, q) (
+  freq < f_min ? freq = f_min : 0;
+  freq > f_max ? freq = f_max : 0;
+
+  n = A4_MIDI + 12 * (log(freq / A4) / ln2);
+  n = floor(n + 0.5);
+  q = A4 * exp(ln2 * (n - A4_MIDI) / 12);
+
+  q < f_min ? f_min : q > f_max ? f_max : q;
+);
+
+// 1-pole LP coefficient from cutoff (Hz)
+// a = 1 - exp(-2*pi*fc/srate)
+function lp_coef(fc) local(lim) (
+  fc < 10 ? fc = 10 : 0;
+  lim = srate*0.45;
+  fc > lim ? fc = lim : 0;
+  1 - exp(-two_pi*fc/srate);
+);
+
+// Gain compensation for 1-pole LP so RMS stays ~constant vs cutoff
+// For y = (1-a)*y + a*x, var_out = var_in * a/(2-a)
+function lp_gain_comp(a) local(g) (
+  a = max(a, 0.001);        // clamp (NO scientific notation)
+  g = sqrt((2 - a) / a);
+  g;
+);
+
+
+@slider
+out_on = slider1;
+master = slider2/127;
+qmode  = slider3;
+
+// Update fade constants
+fade_samps = max(1, floor(srate * fade_ms / 1000));
+fade_step = 1 / fade_samps;
+
+// Update smoothing coefficients
+vol_smooth_coef   = exp(-1 / (srate * vol_smooth_ms  * 0.001));
+freq_smooth_coef  = exp(-1 / (srate * freq_smooth_ms * 0.001));
+norm_smooth_coef  = exp(-1 / (srate * norm_smooth_ms * 0.001));
+
+// Fade trigger
+(prev_out == 0 && out_on == 1) ? (gate = 0; fading = 1;) : 0;
+(out_on == 0) ? (gate = 0; fading = 0;) : 0;
+prev_out = out_on;
+
+// Targets
+w1 = slider4;   f1 = log_clamp_freq(slider5);   v1 = slider6/127;
+w2 = slider7;   f2 = log_clamp_freq(slider8);   v2 = slider9/127;
+w3 = slider10;  f3 = log_clamp_freq(slider11);  v3 = slider12/127;
+w4 = slider13;  f4 = log_clamp_freq(slider14);  v4 = slider15/127;
+w5 = slider16;  f5 = log_clamp_freq(slider17);  v5 = slider18/127;
+w6 = slider19;  f6 = log_clamp_freq(slider20);  v6 = slider21/127;
+
+// Quantize (stepped by design)
+(qmode == 1) ? (
+  f1 = quantize_semitone(f1);
+  f2 = quantize_semitone(f2);
+  f3 = quantize_semitone(f3);
+  f4 = quantize_semitone(f4);
+  f5 = quantize_semitone(f5);
+  f6 = quantize_semitone(f6);
+) : 0;
+
+// Norm target (based on TARGET vols)
+active = 0;
+active += (v1 > 0) ? 1 : 0;
+active += (v2 > 0) ? 1 : 0;
+active += (v3 > 0) ? 1 : 0;
+active += (v4 > 0) ? 1 : 0;
+active += (v5 > 0) ? 1 : 0;
+active += (v6 > 0) ? 1 : 0;
+active < 1 ? (active = 1;) : active;
+norm_target = 1/active;
+
+
+@sample
+// fade gate
+(out_on == 1 && fading == 1) ? (
+  gate += fade_step;
+  gate >= 1 ? (gate = 1; fading = 0;) : 0;
+) : 0;
+
+// smooth volumes
+sv1 = v1 + (sv1 - v1) * vol_smooth_coef;
+sv2 = v2 + (sv2 - v2) * vol_smooth_coef;
+sv3 = v3 + (sv3 - v3) * vol_smooth_coef;
+sv4 = v4 + (sv4 - v4) * vol_smooth_coef;
+sv5 = v5 + (sv5 - v5) * vol_smooth_coef;
+sv6 = v6 + (sv6 - v6) * vol_smooth_coef;
+
+// smooth freqs
+sf1 = f1 + (sf1 - f1) * freq_smooth_coef;
+sf2 = f2 + (sf2 - f2) * freq_smooth_coef;
+sf3 = f3 + (sf3 - f3) * freq_smooth_coef;
+sf4 = f4 + (sf4 - f4) * freq_smooth_coef;
+sf5 = f5 + (sf5 - f5) * freq_smooth_coef;
+sf6 = f6 + (sf6 - f6) * freq_smooth_coef;
+
+// inc from smoothed freqs
+inc1 = sf1/srate; inc2 = sf2/srate; inc3 = sf3/srate;
+inc4 = sf4/srate; inc5 = sf5/srate; inc6 = sf6/srate;
+
+// smooth norm
+norm_s = norm_target + (norm_s - norm_target) * norm_smooth_coef;
+
+// output off: silence, but keep phases running
+out_on == 0 ? (
+  spl0=0; spl1=0;
+
+  ph1 += inc1; ph1 -= floor(ph1);
+  ph2 += inc2; ph2 -= floor(ph2);
+  ph3 += inc3; ph3 -= floor(ph3);
+  ph4 += inc4; ph4 -= floor(ph4);
+  ph5 += inc5; ph5 -= floor(ph5);
+  ph6 += inc6; ph6 -= floor(ph6);
+) : (
+  s = 0;
+
+  // V01
+  w1==0 ? (x = sin(two_pi*ph1);) :
+  w1==1 ? (sq = bl_square(ph1, inc1); t1 = tri_from_square(sq, t1, inc1); x = t1 * 4;) :
+  w1==2 ? (x = bl_square(ph1, inc1);) :
+  w1==3 ? (x = bl_saw(ph1, inc1);) :
+          (
+            n = noise2();
+            a = lp_coef(sf1);
+            nz1 += a*(n - nz1);
+            x = nz1 * lp_gain_comp(a);
+          );
+  s += sv1 * x;
+
+  // V02
+  w2==0 ? (x = sin(two_pi*ph2);) :
+  w2==1 ? (sq = bl_square(ph2, inc2); t2 = tri_from_square(sq, t2, inc2); x = t2 * 4;) :
+  w2==2 ? (x = bl_square(ph2, inc2);) :
+  w2==3 ? (x = bl_saw(ph2, inc2);) :
+          (
+            n = noise2();
+            a = lp_coef(sf2);
+            nz2 += a*(n - nz2);
+            x = nz2 * lp_gain_comp(a);
+          );
+  s += sv2 * x;
+
+  // V03
+  w3==0 ? (x = sin(two_pi*ph3);) :
+  w3==1 ? (sq = bl_square(ph3, inc3); t3 = tri_from_square(sq, t3, inc3); x = t3 * 4;) :
+  w3==2 ? (x = bl_square(ph3, inc3);) :
+  w3==3 ? (x = bl_saw(ph3, inc3);) :
+          (
+            n = noise2();
+            a = lp_coef(sf3);
+            nz3 += a*(n - nz3);
+            x = nz3 * lp_gain_comp(a);
+          );
+  s += sv3 * x;
+
+  // V04
+  w4==0 ? (x = sin(two_pi*ph4);) :
+  w4==1 ? (sq = bl_square(ph4, inc4); t4 = tri_from_square(sq, t4, inc4); x = t4 * 4;) :
+  w4==2 ? (x = bl_square(ph4, inc4);) :
+  w4==3 ? (x = bl_saw(ph4, inc4);) :
+          (
+            n = noise2();
+            a = lp_coef(sf4);
+            nz4 += a*(n - nz4);
+            x = nz4 * lp_gain_comp(a);
+          );
+  s += sv4 * x;
+
+  // V05
+  w5==0 ? (x = sin(two_pi*ph5);) :
+  w5==1 ? (sq = bl_square(ph5, inc5); t5 = tri_from_square(sq, t5, inc5); x = t5 * 4;) :
+  w5==2 ? (x = bl_square(ph5, inc5);) :
+  w5==3 ? (x = bl_saw(ph5, inc5);) :
+          (
+            n = noise2();
+            a = lp_coef(sf5);
+            nz5 += a*(n - nz5);
+            x = nz5 * lp_gain_comp(a);
+          );
+  s += sv5 * x;
+
+  // V06
+  w6==0 ? (x = sin(two_pi*ph6);) :
+  w6==1 ? (sq = bl_square(ph6, inc6); t6 = tri_from_square(sq, t6, inc6); x = t6 * 4;) :
+  w6==2 ? (x = bl_square(ph6, inc6);) :
+  w6==3 ? (x = bl_saw(ph6, inc6);) :
+          (
+            n = noise2();
+            a = lp_coef(sf6);
+            nz6 += a*(n - nz6);
+            x = nz6 * lp_gain_comp(a);
+          );
+  s += sv6 * x;
+
+  s *= (master * norm_s * gate);
+
+  spl0 = s;
+  spl1 = s;
+
+  ph1 += inc1; ph1 -= floor(ph1);
+  ph2 += inc2; ph2 -= floor(ph2);
+  ph3 += inc3; ph3 -= floor(ph3);
+  ph4 += inc4; ph4 -= floor(ph4);
+  ph5 += inc5; ph5 -= floor(ph5);
+  ph6 += inc6; ph6 -= floor(ph6);
+);
+
