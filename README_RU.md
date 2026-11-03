@@ -1,8 +1,16 @@
-# Patch34 ReaPack
+# Patch34 Scripts
 
 [English](README.md) · **Русский**
 
-Личный каталог ReaPack со скриптами и JSFX для REAPER. Автор: [Aleksei Vorobev / Patch34](https://github.com/patch-34).
+## О проекте
+
+**Patch34 Scripts** — коллекция Lua-скриптов ReaScript и эффектов JSFX для REAPER, которую разрабатывает саунд-дизайнер Aleksei Vorobev.
+
+Коллекция включает инструменты для редактирования аудио, навигации по временной шкале, организации проектов, автоматизации рабочих операций и экспериментального звукового дизайна.
+
+Каждый инструмент разработан как самостоятельная утилита с конкретным назначением, понятным управлением и возможностью использования в повседневной работе с REAPER.
+
+**Автор:** [Aleksei Vorobev / Patch34](https://github.com/patch-34)
 
 ## Подключение каталога
 
@@ -12,32 +20,16 @@
    `https://raw.githubusercontent.com/patch-34/patch34-reapack/main/index.xml`
 
 3. Откройте **Extensions → ReaPack → Browse packages** и выберите нужный скрипт или JSFX.
-4. Установите выбранные пакеты и выполните синхронизацию. В дальнейшем обновления устанавливаются через тот же интерфейс.
+4. Установите выбранные пакеты и выполните синхронизацию. Дальнейшие обновления устанавливаются через тот же интерфейс.
 
 ## Состав каталога
 
-В каталоге `Scripts/` подготовлены семь новых ReaScript:
+В каталоге `Scripts/` размещены Delete Nearest Marker to Cursor, Duplicate Selected Items to Next Measure, Play 2s Before Next Marker or Region, Find and Recolor Glued Items, Focus Blanket, REAPER Timeline Screensaver, Region Time Counter Mini, Region Time Counter, ReaNotepad и Podcast HTML/DOCX Script Viewer.
 
-- Delete Nearest Marker to Cursor.
-- Duplicate Selected Items to Next Measure.
-- Play 2s Before Next Marker or Region.
-- Find and Recolor Glued Items.
-- Focus Blanket.
-- REAPER Timeline Screensaver.
-- Region Time Counter Mini.
+Каталог `Effects/` содержит Raw Six — шестиголосный генератор JSFX. В состав пакета входит шаблон трека, устанавливаемый вместе с эффектом.
 
-Каталог `Effects/` содержит **Raw Six** — шестиголосный JSFX-генератор сигнала. В состав пакета входит шаблон трека, который устанавливается вместе с эффектом.
+Инструкции по использованию и сведения о лицензии каждого инструмента приведены в его репозитории.
 
-Ранее опубликованные пакеты **Region Time Counter** (полная версия), **ReaNotepad** и **Podcast HTML/DOCX Script Viewer** остаются отдельными пакетами и не изменяются.
+## Публикация обновлений
 
-## Публикация
-
-Индекс генерируется автоматически через `.github/workflows/reapack.yml` при отправке изменений в ветку `main`. Не изменяйте `index.xml` вручную.
-
-После объединения изменений проверьте успешное выполнение GitHub Actions и убедитесь, что все восемь новых пакетов присутствуют в обновлённом индексе.
-
-## Авторство
-
-Автор: [Aleksei Vorobev / Patch34](https://github.com/patch-34).
-
-Руководство пользователя и лицензия каждого пакета приведены в его собственном репозитории.
+Файл `index.xml` генерируется автоматически сценарием `.github/workflows/reapack.yml` после отправки изменений в ветку `main`. Не редактируйте индекс вручную. После обновления пакетов проверьте выполнение GitHub Actions и наличие нужных версий в сформированном индексе.
