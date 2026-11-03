@@ -1,6 +1,7 @@
 -- @description Duplicate Selected Items to Next Measure
 -- @version 1.0.0
 -- @author Aleksei Vorobev / Patch34
+-- @license MIT
 -- @link
 --   GitHub repository https://github.com/patch-34/duplicate-items-to-next-measure
 -- @about
