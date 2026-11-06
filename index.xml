@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="Patch34 Scripts" commit="4d87a2131e6d9cecf436c48fce5c1ce518b3ad99">
+<index version="1" name="Patch34 Scripts" commit="973d3087bcc4932bbaf44f26d6bdf4a41cc9b522">
   <category name="Effects">
     <reapack name="Patch34_Raw_Six.jsfx" type="effect" desc="Raw Six">
       <metadata>
@@ -132,6 +132,12 @@
 Group colors and creation drag-and-drop; import handles HH:MM:SS:FF.
 Updated note editing and recovery safeguards.]]></changelog>
         <source main="main">https://github.com/patch-34/patch34-reapack/raw/4d87a2131e6d9cecf436c48fce5c1ce518b3ad99/Scripts/ReaNotepad.lua</source>
+      </version>
+      <version name="0.6.1" author="Aleksei Vorobev / Patch34" time="2026-11-06T22:42:42Z">
+        <changelog><![CDATA[Restore timecode badges and navigation for previously imported notes.
+Timecode detection is independent of import splitting.
+Clarify import toggle as Split at timecodes.]]></changelog>
+        <source main="main">https://github.com/patch-34/patch34-reapack/raw/973d3087bcc4932bbaf44f26d6bdf4a41cc9b522/Scripts/ReaNotepad.lua</source>
       </version>
     </reapack>
     <reapack name="REAPER_Timeline_Screensaver.lua" type="script" desc="REAPER Timeline Screensaver">
