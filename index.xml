@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="Patch34 Scripts" commit="973d3087bcc4932bbaf44f26d6bdf4a41cc9b522">
+<index version="1" name="Patch34 Scripts" commit="3588955b99700851b36753fe1f77064c026f89e2">
   <category name="Effects">
     <reapack name="Patch34_Raw_Six.jsfx" type="effect" desc="Raw Six">
       <metadata>
@@ -138,6 +138,12 @@ Updated note editing and recovery safeguards.]]></changelog>
 Timecode detection is independent of import splitting.
 Clarify import toggle as Split at timecodes.]]></changelog>
         <source main="main">https://github.com/patch-34/patch34-reapack/raw/973d3087bcc4932bbaf44f26d6bdf4a41cc9b522/Scripts/ReaNotepad.lua</source>
+      </version>
+      <version name="0.6.2" author="Aleksei Vorobev / Patch34" time="2026-11-07T10:35:29Z">
+        <changelog><![CDATA[Restore native ReaImGui tooltips with compact styling and a 0.4s delay.
+Apply Undo/Redo before drawing notes to prevent one-frame flicker.
+Correct tab creation history labels and remove obsolete UI strings.]]></changelog>
+        <source main="main">https://github.com/patch-34/patch34-reapack/raw/3588955b99700851b36753fe1f77064c026f89e2/Scripts/ReaNotepad.lua</source>
       </version>
     </reapack>
     <reapack name="REAPER_Timeline_Screensaver.lua" type="script" desc="REAPER Timeline Screensaver">
