@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="Patch34 Scripts" commit="3588955b99700851b36753fe1f77064c026f89e2">
+<index version="1" name="Patch34 Scripts" commit="93914a6e64f3d1b3dc0c21500cd32e02b392f39e">
   <category name="Effects">
     <reapack name="Patch34_Raw_Six.jsfx" type="effect" desc="Raw Six">
       <metadata>
@@ -144,6 +144,13 @@ Clarify import toggle as Split at timecodes.]]></changelog>
 Apply Undo/Redo before drawing notes to prevent one-frame flicker.
 Correct tab creation history labels and remove obsolete UI strings.]]></changelog>
         <source main="main">https://github.com/patch-34/patch34-reapack/raw/3588955b99700851b36753fe1f77064c026f89e2/Scripts/ReaNotepad.lua</source>
+      </version>
+      <version name="0.7.0" author="Aleksei Vorobev / Patch34" time="2026-11-10T08:25:19Z">
+        <changelog><![CDATA[Release 0.7.0: shared note/group action alignment and frameless menus.
+Add group quick-add checkbox note and note checkbox toggle actions.
+Unify font/spacing sliders, timecode navigation and timeline focus.
+Stabilize ImGui scope pairing, note ordering and UI state handling.]]></changelog>
+        <source main="main">https://github.com/patch-34/patch34-reapack/raw/93914a6e64f3d1b3dc0c21500cd32e02b392f39e/Scripts/ReaNotepad.lua</source>
       </version>
     </reapack>
     <reapack name="REAPER_Timeline_Screensaver.lua" type="script" desc="REAPER Timeline Screensaver">
